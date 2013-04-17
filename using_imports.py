@@ -3,16 +3,28 @@ import ast
 import sys
 
 
+class ImportNodesVisitor(ast.NodeVisitor):
+    def __init__(self, *args, **kwargs):
+        super(ImportNodesVisitor, self).__init__(*args, **kwargs)
+        self.imports = []
+
+    def _extract_imports(self, node):
+        self.imports += [n.name for n in node.names]
+
+    def visit_ImportFrom(self, node):
+        self._extract_imports(node)
+
+    def visit_Import(self, node):
+        self._extract_imports(node)
+
+
 def main(filename):
-    imports = []
     with open(filename, 'rt') as file_obj:
         source = file_obj.read()
 
-    for n in ast.walk(ast.parse(source)):
-        if isinstance(n, (ast.Import, ast.ImportFrom)):
-            imports += [nm.name for nm in n.names]
-
-    print(imports)
+    im_visitor = ImportNodesVisitor()
+    im_visitor.visit(ast.parse(source))
+    print(im_visitor.imports)
 
 
 if __name__ == '__main__':
