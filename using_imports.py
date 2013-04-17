@@ -10,6 +10,7 @@ class ImportNodesVisitor(ast.NodeVisitor):
 
     def _extract_imports(self, node):
         self.imports += [n.name for n in node.names]
+        self.generic_visit(node)
 
     def visit_ImportFrom(self, node):
         self._extract_imports(node)
@@ -24,7 +25,7 @@ def main(filename):
 
     im_visitor = ImportNodesVisitor()
     im_visitor.visit(ast.parse(source))
-    print(im_visitor.imports)
+    print(set(im_visitor.imports))
 
 
 if __name__ == '__main__':

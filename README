@@ -13,5 +13,5 @@ def fn():
     import importlib
 " > sample.py
 
-$ VIRTUAL_ENV/local/bin/using_imports.py sample.py
+$ $VIRTUAL_ENV/local/bin/using_imports.py sample.py
 ['os', 'sys', 'dis', 'importlib']
