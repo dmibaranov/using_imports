@@ -1,0 +1,12 @@
+Static analize for imports from source file
+
+
+$ pip install using_imports
+$ echo "import os, sys
+from dis import dis as dis_dis
+
+def fn():
+    import importlib
+" > sample.py
+$ python -m using_imports.check sample.py
+['os', 'sys', 'dis', 'importlib']
