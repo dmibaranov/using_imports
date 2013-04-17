@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import ast
 import sys
 
@@ -8,7 +9,7 @@ def main(filename):
         source = file_obj.read()
 
     for n in ast.walk(ast.parse(source)):
-        if isinstance(n, ast.Import) or isinstance(n, ast.ImportFrom):
+        if isinstance(n, (ast.Import, ast.ImportFrom)):
             imports += [nm.name for nm in n.names]
 
     print(imports)

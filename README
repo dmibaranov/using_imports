@@ -1,12 +1,17 @@
-Static analize for imports from source file
+Extract all imports from Python source file
 
+$ python3 -m venv usage
 
-$ pip install using_imports
+$ source usage/bin/activate
+
+$ python3 setup.py install
+
 $ echo "import os, sys
 from dis import dis as dis_dis
 
 def fn():
     import importlib
 " > sample.py
-$ python -m using_imports.check sample.py
+
+$ VIRTUAL_ENV/local/bin/using_imports.py sample.py
 ['os', 'sys', 'dis', 'importlib']
